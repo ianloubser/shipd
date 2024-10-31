@@ -16,3 +16,5 @@ curl -o- https://raw.githubusercontent.com/ianloubser/smol-deploy/vm-install.sh 
 ```
 
 You'd only need to SSH into VPS now for any normal maintenance issues but your general deploy lifecycle should be sorted :) 
+
+For a breakdown of how the service works, have a read here [https://ianloubser.github.io/posts/deploy-your-sideprojects/](https://ianloubser.github.io/posts/deploy-your-sideprojects/)
