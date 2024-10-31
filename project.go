@@ -98,10 +98,10 @@ func deployProject(project string, commitSha string) {
 
 	os.MkdirAll(config.Path, fs.ModePerm) // ensure directory exists
 
-	runStep([]string{"/bin/sh", "-c", config.Teardown}, config.Path)          // kill the current running server
-	runStep([]string{"/bin/sh", "-c", "mv ./* " + config.Path + "/"}, tmpDir) // mv build results
-	runStep([]string{"/bin/sh", "-c", config.Run}, config.Path)               // start the server again
-	runStep([]string{"/bin/sh", "-c", "rm -rf ./*"}, tmpDir)                  // clean tmp dir
+	runStep([]string{"/bin/sh", "-c", config.Teardown}, config.Path)             // kill the current running server
+	runStep([]string{"/bin/sh", "-c", "cp -r ./* " + config.Path + "/"}, tmpDir) // mv build results
+	runStep([]string{"/bin/sh", "-c", config.Run}, config.Path)                  // start the server again
+	runStep([]string{"/bin/sh", "-c", "rm -rf ./*"}, tmpDir)                     // clean tmp dir
 
 	os.WriteFile(config.Path+"/sha.log", []byte(commitSha), fs.ModePerm) // dump the commit so we know what version is running
 }
