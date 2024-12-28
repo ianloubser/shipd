@@ -57,14 +57,25 @@ func checkout(repo string, commit string, sshKey string) string {
 		Auth: publicKeys,
 	})
 
+	refs, _ := localRepo.References()
+	refs.ForEach(func(ref *plumbing.Reference) error {
+		if ref.Type() == plumbing.HashReference {
+			fmt.Println(ref)
+		}
+
+		return nil
+	})
+
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 
 	w, _ := localRepo.Worktree()
 
+	fmt.Println("Cloning ", commit)
 	err = w.Checkout(&git.CheckoutOptions{
-		Hash: plumbing.NewHash(commit),
+		Force: true,
+		Hash:  plumbing.NewHash(commit),
 	})
 
 	if err != nil {
@@ -104,6 +115,7 @@ func deployProject(project string, commitSha string) {
 	runStep([]string{"/bin/sh", "-c", "rm -rf ./*"}, tmpDir)                     // clean tmp dir
 
 	os.WriteFile(config.Path+"/sha.log", []byte(commitSha), fs.ModePerm) // dump the commit so we know what version is running
+	fmt.Println("Deployed new version of: " + project)
 }
 
 func getProjectHealth(project string) ProjectHealth {

@@ -1,4 +1,4 @@
-## go deploy
+## shipd
 
 This is a nifty lightweight server I use to deploy updates and rollout changes to my side hustles. Docker is overkill, and likewise any AWS Fargate or other offerings. I run this API as a service and it takes care of pulling a git repo, doing setup & teardown and restart of service to update. 
 This means my repo workflow/pipeline can just do a POST request to this API with commit SHA and that version will get deployed. 
@@ -10,9 +10,9 @@ And then I use global install of `nvm` so different projects can use different n
 
 The only next step to get going is then to create the `.toml` file to configure each project, and thats it!.
 
-All of the above is also automated, and you could just run the `vm-install.sh` script to get it all set up, example:
+All of the above is also automated, and you could just run the `vm-bootstrap.sh` script to get it all set up, example:
 ```bash
-curl -o- https://raw.githubusercontent.com/ianloubser/smol-deploy/vm-install.sh {wildcard-domain-here} | bash
+curl -o- https://raw.githubusercontent.com/ianloubser/shipd/vm-bootstrap.sh {wildcard-domain-here} | bash
 ```
 
 You'd only need to SSH into VPS now for any normal maintenance issues but your general deploy lifecycle should be sorted :) 

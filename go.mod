@@ -1,4 +1,4 @@
-module github.com/ianloubser/smol-deploy
+module github.com/ianloubser/shipd
 
 go 1.22.5
 
